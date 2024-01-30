@@ -1,0 +1,86 @@
+﻿<Window x:Class="WpfApp1_RozwiazywanieQuizu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1_RozwiazywanieQuizu"
+        xmlns:vm="clr-namespace:WpfApp1_RozwiazywanieQuizu.ViewModel"
+        
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="1000">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <vm:MainViewModel x:Name="viewModel"/>
+    </Window.DataContext>
+
+    <Grid RenderTransformOrigin="0.5,0.5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="605*"/>
+            <ColumnDefinition Width="306*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform X="0"/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <Button x:Name="start" Content="{Binding BtStartText}" IsEnabled="{Binding IsStartQuizEnabled}" Command="{Binding StartQuiz}" HorizontalAlignment="Left" Margin="40,28,0,0" VerticalAlignment="Top" Height="59" Width="247" FontSize="24" Click="start_Click" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="question" Text="{Binding TbQuestionText}" Visibility="{Binding QuestionVisible}" HorizontalAlignment="Left" Margin="40,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="734" Height="73" FontSize="22" TextChanged="question_TextChanged" Grid.ColumnSpan="3" IsEnabled="False" BorderBrush="White" FontWeight="Bold"/>
+        <CheckBox x:Name="answer4" IsChecked="{Binding IsAnswer4Checked}" Content="{Binding TbAns4Text}" IsEnabled="{Binding IsAnsweringEnabled}" Command="{Binding Answer4}" HorizontalAlignment="Left" Margin="5,376,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,0.5" SnapsToDevicePixels="True" Checked="answer4_Checked" Grid.Column="1">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-9.98749"/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
+        <CheckBox x:Name="answer3" IsChecked="{Binding IsAnswer3Checked}" Content="{Binding TbAns3Text}" IsEnabled="{Binding IsAnsweringEnabled}" Command="{Binding Answer3}" HorizontalAlignment="Left" Margin="4,323,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,0.5" SnapsToDevicePixels="True" Checked="answer3_Checked" Grid.Column="1">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-9.98749"/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
+        <CheckBox x:Name="answer2" IsChecked="{Binding IsAnswer2Checked}" Content="{Binding TbAns2Text}" IsEnabled="{Binding IsAnsweringEnabled}" Command="{Binding Answer2}" HorizontalAlignment="Left" Margin="2,287,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,0.5" SnapsToDevicePixels="True" Checked="answer2_Checked" Grid.Column="1">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-7.55054" Y="-23.342"/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
+        <CheckBox x:Name="answer1" IsChecked="{Binding IsAnswer1Checked}" Content="{Binding TbAns1Text}" IsEnabled="{Binding IsAnsweringEnabled}" Command="{Binding Answer1}"  HorizontalAlignment="Left" Margin="5,229,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,0.5" SnapsToDevicePixels="True" Checked="answer1_Checked" Height="16" Grid.Column="1" >
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-10.0874" Y="-20.416"/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
+        <Button x:Name="stop" Command="{Binding NextQuestion}" IsEnabled="{Binding IsNextAnswerEnabled}" Content="Dalej" HorizontalAlignment="Left" Margin="424,28,0,0" VerticalAlignment="Top" Height="59" Width="247" FontSize="24" Click="stop_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="selectQuiz" ItemsSource="{Binding Path=AvilableQuizesNames}" SelectedIndex="{Binding Path=SelectedQuizIndex}" IsEnabled="{Binding IsCbEnabled}" HorizontalAlignment="Left" Margin="247,59,0,0" VerticalAlignment="Top" Width="138" Height="28" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="247,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="29" Width="151" FontSize="15" Grid.Column="1"><Run Language="pl-pl" Text="Wybierz numer quizu:"/></TextBlock>
+        <Label Content="{Binding TimerViewModel.SecondsElapsed}" Visibility="{Binding IsTimerVisible}" Grid.Column="2" HorizontalAlignment="Left" Margin="119,52,0,0" VerticalAlignment="Top" Height="34" Width="114" FontSize="20"/>
+        <TextBlock Visibility="{Binding IsTimerVisible}" HorizontalAlignment="Left" Margin="91,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" Width="193" FontSize="15" Grid.Column="2"><Run Language="pl-pl" Text="Czas rozwiązywania quizu"/><Run Text=":"/></TextBlock>
+
+    </Grid>
+</Window>
